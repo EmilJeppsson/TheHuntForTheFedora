@@ -27,19 +27,19 @@
 
   var game = new Phaser.Game(config);
 
-  function preload ()
+  function preload () //Laddar alla assets som spelet behöver innan scenen skapas
   {
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'http://labs.phaser.io/src/games/firstgame/assets/platform.png');
     this.load.image('neethouse', 'assets/neethouse.png');
   }
 
-  function create ()
+  function create () //Skapar scenen
   {
     this.add.image(1500, 300, 'sky');
   }
 
-  function update ()
+  function update () //Sköter uppdateringar till scenen som tex kontroll av huvudkaraktären
   {
   }
   </script>
