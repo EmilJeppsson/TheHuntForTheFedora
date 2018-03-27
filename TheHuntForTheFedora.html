@@ -29,12 +29,14 @@
 
   function preload ()
   {
+    this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'http://labs.phaser.io/src/games/firstgame/assets/platform.png');
     this.load.image('neethouse', 'assets/neethouse.png');
   }
 
   function create ()
   {
+    this.add.image(1500, 300, 'sky');
   }
 
   function update ()
