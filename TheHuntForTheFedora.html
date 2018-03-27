@@ -25,6 +25,8 @@
       }
   };
 
+  var platforms;
+
   var game = new Phaser.Game(config);
 
   function preload () //Laddar alla assets som spelet behöver innan scenen skapas
@@ -32,11 +34,22 @@
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'http://labs.phaser.io/src/games/firstgame/assets/platform.png');
     this.load.image('neethouse', 'assets/neethouse.png');
+    this.load.spritesheet('neet', 'assets/neetHD', { frameWidth: 32, frameHeight: 48 });
   }
 
   function create () //Skapar scenen
   {
     this.add.image(1500, 300, 'sky');
+
+    platforms = this.physics.add.staticGroup();
+    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
+
+    player = this.physics.add.sprite(100, 450, 'neet');
+    this.physics.add.collider(player, platforms);
+
+    this.cameras.main.setSize(800, 600);
+    this.cameras.main.startFollow(player);
   }
 
   function update () //Sköter uppdateringar till scenen som tex kontroll av huvudkaraktären
