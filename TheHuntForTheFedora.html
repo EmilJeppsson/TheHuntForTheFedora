@@ -40,9 +40,16 @@
   function create () //Skapar scenen
   {
     this.add.image(1500, 300, 'sky');
+
     this.add.image(300, 320, 'neethouse');
     platforms = this.physics.add.staticGroup();
-    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
+
+    player = this.physics.add.sprite(100, 450, 'neet');
+    this.physics.add.collider(player, platforms);
+
+    this.cameras.main.setSize(800, 600);
+    this.cameras.main.startFollow(player);
   }
 
   function update () //Sköter uppdateringar till scenen som tex kontroll av huvudkaraktären
