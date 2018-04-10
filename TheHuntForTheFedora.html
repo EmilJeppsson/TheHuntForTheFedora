@@ -15,7 +15,7 @@
           default: 'arcade',
           arcade: {
               gravity: { y: 300 },
-              debug: false
+              debug: true
           }
       },
       scene: {
@@ -25,6 +25,8 @@
       }
   };
 
+  var platforms;
+
   var game = new Phaser.Game(config);
 
   function preload () //Laddar alla assets som spelet behöver innan scenen skapas
@@ -32,12 +34,28 @@
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'http://labs.phaser.io/src/games/firstgame/assets/platform.png');
     this.load.image('neethouse', 'assets/neethouse.png');
+    this.load.image('tree', 'assets/tree.png');
+    this.load.spritesheet('neet', 'assets/neet.png', { frameWidth: 32, frameHeight: 48 });
   }
 
   function create () //Skapar scenen
   {
     this.add.image(1500, 300, 'sky');
-    
+
+    this.add.image(300, 320, 'neethouse');
+
+    this.add.image(700, 300, 'tree');
+
+    platforms = this.physics.add.staticGroup();
+    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
+
+    player = this.physics.add.sprite(100, 450, 'neet');
+    player.setCollideWorldBounds(true);
+    this.physics.add.collider(player, platforms);
+
+    //this.cameras.main.setSize(800, 600);
+    //this.cameras.main.startFollow(player);
   }
 
   function update () //Sköter uppdateringar till scenen som tex kontroll av huvudkaraktären
