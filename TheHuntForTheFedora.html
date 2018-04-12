@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>The hunt for the Fedora</title>
-  <script src="//cdn.jsdelivr.net/npm/phaser@3.2.0/dist/phaser.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/phaser@3.3.0/dist/phaser.js"></script>
 </head>
 <body>
   <script type='text/javascript'>
@@ -46,15 +46,16 @@
 
     this.add.image(300, 320, 'neethouse');
 
-    this.add.image(700, 300, 'tree');
+    this.add.image(800, 350, 'tree');
 
     platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(800, 650, 'ground').setScale(4).refreshBody();
 
-    player = this.physics.add.sprite(100, 450, 'neet');
+    player = this.physics.add.sprite(700, 450, 'neet');
 
-    player.setCollideWorldBounds(true);
+    //player.setCollideWorldBounds(true);
     this.physics.add.collider(player, platforms);
 
     //this.cameras.main.setSize(800, 600);
