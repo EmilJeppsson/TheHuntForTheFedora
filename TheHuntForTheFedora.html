@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>The hunt for the Fedora</title>
-  <script src="//cdn.jsdelivr.net/npm/phaser@3.2.0/dist/phaser.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/phaser@3.2.0/dist/phaser.js"></script>
 </head>
 <body>
   <script type='text/javascript'>
@@ -25,7 +25,9 @@
       }
   };
 
+  var player;
   var platforms;
+  var cursors;
 
   var game = new Phaser.Game(config);
 
@@ -35,7 +37,7 @@
     this.load.image('ground', 'http://labs.phaser.io/src/games/firstgame/assets/platform.png');
     this.load.image('neethouse', 'assets/neethouse.png');
     this.load.image('tree', 'assets/tree.png');
-    this.load.spritesheet('neet', 'assets/neet.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet('neet', 'assets/neet.png', { frameWidth: 80, frameHeight: 150 });
   }
 
   function create () //Skapar scenen
@@ -51,15 +53,41 @@
     platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
 
     player = this.physics.add.sprite(100, 450, 'neet');
+
     player.setCollideWorldBounds(true);
     this.physics.add.collider(player, platforms);
 
     //this.cameras.main.setSize(800, 600);
-    //this.cameras.main.startFollow(player);
+    this.cameras.main.startFollow(player);
+
+    cursors = this.input.keyboard.createCursorKeys();
   }
 
   function update () //Sköter uppdateringar till scenen som tex kontroll av huvudkaraktären
   {
+    if (cursors.left.isDown)
+    {
+        player.setVelocityX(-160);
+
+        //player.anims.play('left', true);
+    }
+    else if (cursors.right.isDown)
+    {
+        player.setVelocityX(160);
+
+        //player.anims.play('right', true);
+    }
+    else
+    {
+        player.setVelocityX(0);
+
+        //player.anims.play('turn');
+    }
+
+    if (cursors.up.isDown && player.body.touching.down)
+    {
+        player.setVelocityY(-330);
+    }
   }
   </script>
 </body>
