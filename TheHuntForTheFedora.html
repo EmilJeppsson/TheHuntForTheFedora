@@ -15,7 +15,7 @@
           default: 'arcade',
           arcade: {
               gravity: { y: 600 },
-              debug: true
+              debug: false
           }
       },
       scene: {
@@ -55,9 +55,9 @@
     platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
-    platforms.create(800, 650, 'ground').setScale(4).refreshBody();
+    platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
 
-    player = this.physics.add.sprite(100, 450, 'neet');
+    player = this.physics.add.sprite(700, 450, 'neet');
 
     //player.setCollideWorldBounds(true);
 
