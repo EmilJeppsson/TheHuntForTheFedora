@@ -38,6 +38,10 @@
     this.load.image('neethouse', 'assets/neethouse.png');
     this.load.image('tree', 'assets/tree.png');
     this.load.spritesheet('neet', 'assets/neet.png', { frameWidth: 80, frameHeight: 150 });
+    this.load.audio('theme', [
+       'assets/Audio/Neckbeard.mp3'
+
+   ]);
   }
 
   function create () //Skapar scenen
@@ -86,6 +90,9 @@
         frameRate: 10,
         repeat: -1
     });
+    var music = this.sound.add('theme');
+
+   music.play();
   }
 
   function update () //Sköter uppdateringar till scenen som tex kontroll av huvudkaraktären
