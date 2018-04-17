@@ -33,15 +33,12 @@
 
   function preload () //Laddar alla assets som spelet behöver innan scenen skapas
   {
-    this.load.image('sky', 'assets/sky.png');
+    this.load.image('sky', 'assets/pictures/sky.png');
     this.load.image('ground', 'http://labs.phaser.io/src/games/firstgame/assets/platform.png');
-    this.load.image('neethouse', 'assets/neethouse.png');
-    this.load.image('tree', 'assets/tree.png');
-    this.load.spritesheet('neet', 'assets/neet.png', { frameWidth: 80, frameHeight: 150 });
-    this.load.audio('theme', [
-       'assets/Audio/Neckbeard.mp3'
-
-   ]);
+    this.load.image('neethouse', 'assets/pictures/neethouse.png');
+    this.load.image('tree', 'assets/pictures/tree.png');
+    this.load.image('worldbound', 'assets/pictures/invisiblewall.png');
+    this.load.spritesheet('neet', 'assets/pictures/neet.png', { frameWidth: 80, frameHeight: 150 });
   }
 
   function create () //Skapar scenen
@@ -51,6 +48,8 @@
     this.add.image(300, 320, 'neethouse');
 
     this.add.image(800, 350, 'tree');
+
+
 
     platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
