@@ -41,15 +41,7 @@
     this.load.image('tree', 'assets/pictures/tree.png');
     this.load.image('worldbound', 'assets/pictures/invisiblewall.png');
     this.load.spritesheet('neet', 'assets/pictures/neet.png', { frameWidth: 80, frameHeight: 150 });
-<<<<<<< HEAD
-    this.load.audio('theme', [
-       'assets/Audio/Neckbeard.mp3'
-
-   ]);
-=======
     this.load.audio('theme', ['assets/Audio/Neckbeard2.mp3']);
->>>>>>> ca5ee006fa4e4c88187bf5bed90e4988488bf213
-
   }
 
   function create () //Skapar scenen
@@ -61,7 +53,8 @@
     platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
-    platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
+    //platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
+    platforms.create(2100, 568, 'ground').setScale(2).refreshBody();
 
     worldbounds = this.physics.add.staticGroup();
     worldbounds.create(500, 400, 'worldbound');
