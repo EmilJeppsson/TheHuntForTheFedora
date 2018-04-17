@@ -36,6 +36,7 @@
   function preload () //Laddar alla assets som spelet behöver innan scenen skapas
   {
     this.load.image('sky', 'assets/pictures/sky.png');
+    this.load.image('sky2', 'assets/pictures/sky2.png');
     this.load.image('ground', 'http://labs.phaser.io/src/games/firstgame/assets/platform.png');
     this.load.image('neethouse', 'assets/pictures/neethouse.png');
     this.load.image('tree', 'assets/pictures/tree.png');
@@ -47,6 +48,7 @@
   function create () //Skapar scenen
   {
     this.add.image(1500, 300, 'sky');
+    this.add.image(1500, 900, 'sky2');
     this.add.image(300, 320, 'neethouse');
     this.add.image(800, 350, 'tree');
 
@@ -120,7 +122,7 @@
 
       if (cursors.up.isDown && player.body.touching.down)
       {
-          player.setVelocityY(-330);
+          player.setVelocityY(-1000);
       }
   }
 
