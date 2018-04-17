@@ -57,10 +57,12 @@
     platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
 
     worldbounds = this.physics.add.staticGroup();
+    worldbounds.create(500, 400, 'worldbound');
 
     player = this.physics.add.sprite(700, 450, 'neet');
 
     this.physics.add.collider(player, platforms);
+    this.physics.add.collider(player, worldbounds);
 
     //this.cameras.main.setSize(800, 600);
     this.cameras.main.startFollow(player, 100, null, null);
