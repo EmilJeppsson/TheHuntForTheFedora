@@ -57,7 +57,7 @@
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
     //platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
-    platforms.create(2100, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(2200, 568, 'ground').setScale(2).refreshBody();
 
     worldbounds = this.physics.add.staticGroup();
     worldbounds.create(500, 400, 'worldbound');
@@ -123,7 +123,7 @@
 
       if (cursors.up.isDown && player.body.touching.down)
       {
-          player.setVelocityY(-800);
+          player.setVelocityY(-500);
       }
   }
 
