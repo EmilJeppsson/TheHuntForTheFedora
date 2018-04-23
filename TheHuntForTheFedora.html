@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>The hunt for the Fedora</title>
+  <!-- Phaser-APIn hämtas från ett content delivery network istället för att sparas lokalt.
+  Fördelarna med detta är att projektet får en mycket mindre storlek och att versionen
+  på Phaser kan uppdateras endast genom att ändra adressen. -->
   <script src="//cdn.jsdelivr.net/npm/phaser@3.3.0/dist/phaser.js"></script>
 </head>
 <body>
@@ -15,7 +18,7 @@
           default: 'arcade',
           arcade: {
               gravity: { y: 600 },
-              debug: false
+              debug: true
           }
       },
       scene: {
@@ -25,6 +28,7 @@
       }
   };
 
+  //Alla variabler måste definas globalt för att assignments från tex. create() inte ska försvinna när funktionen löper ut.
   var player;
   var platforms;
   var worldbounds;
@@ -41,23 +45,29 @@
     this.load.image('neethouse', 'assets/pictures/neethouse.png');
     this.load.image('tree', 'assets/pictures/tree.png');
     this.load.image('worldbound', 'assets/pictures/invisiblewall.png');
+    this.load.image('obstaclehouse', 'assets/pictures/hus2.png');
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/Audio/Neckbeard2.mp3']);
   }
 
-  function create () //Skapar scenen
+  function create () //Skapar scenen. Scenen byggs sekventiellt. Detta betyder att ju senare en bild skapas, desto högre prioritet får den.
   {
-    this.add.image(1500, 300, 'sky');
-    this.add.image(1500, 900, 'sky2');
+    this.add.image(1500, 300, 'sky'); //En basic himmel som bakgrund.
+    this.add.image(4500, 300, 'sky');
+    this.add.image(1500, 900, 'sky2'); //sky2 är en horisontell spegelvändning av sky. Det gör att den kan placeras ovanför och under sky med en smooth övergång.
+    this.add.image(4500, 900, 'sky2');
     this.add.image(1500, -300, 'sky2');
+    this.add.image(4500, -300, 'sky2');
     this.add.image(300, 320, 'neethouse');
     this.add.image(800, 350, 'tree');
+    this.add.image(2600, 120, 'obstaclehouse');
 
     platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
     //platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
     platforms.create(2200, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(3000, 568, 'ground').setScale(2).refreshBody();
 
     worldbounds = this.physics.add.staticGroup();
     worldbounds.create(500, 400, 'worldbound');
