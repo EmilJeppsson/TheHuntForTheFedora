@@ -4,3 +4,5 @@ Detta spel är ett skolprojekt med målet att utveckla ett första spel med hjä
 * Emil Jeppsson (Zuddaz)
 * Andreas Persson (Fundays555)
 * Victor Englöf (ralfcat)
+
+Designdokument finns på OneDrive.
