@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>The hunt for the Fedora</title>
+  <title>The Hunt For The Fedora</title>
   <!-- Phaser-APIn hämtas från ett content delivery network istället för att sparas lokalt.
   Fördelarna med detta är att projektet får en mycket mindre storlek och att versionen
   på Phaser kan uppdateras endast genom att ändra adressen. -->
@@ -42,12 +42,12 @@
     this.load.image('sky', 'assets/pictures/sky.png');
     this.load.image('sky2', 'assets/pictures/sky2.png');
     this.load.image('ground', 'http://labs.phaser.io/src/games/firstgame/assets/platform.png');
-    this.load.image('neethouse', 'assets/pictures/neethouse.png');
-    this.load.image('tree', 'assets/pictures/tree.png');
+    this.load.image('neethouse', 'assets/pictures/emil/neethouse.png');
+    this.load.image('tree', 'assets/pictures/andreas/tree.png');
     this.load.image('worldbound', 'assets/pictures/invisiblewall.png');
-    this.load.image('obstaclehouse', 'assets/pictures/hus2.png');
+    this.load.image('obstaclehouse', 'assets/pictures/emil/hus2.png');
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
-    this.load.audio('theme', ['assets/Audio/Neckbeard2.mp3']);
+    this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
   }
 
   function create () //Skapar scenen. Scenen byggs sekventiellt. Detta betyder att ju senare en bild skapas, desto högre prioritet får den.
@@ -60,7 +60,7 @@
     this.add.image(4500, -300, 'sky2');
     this.add.image(300, 320, 'neethouse');
     this.add.image(800, 350, 'tree');
-    this.add.image(2600, 120, 'obstaclehouse');
+
 
     platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
@@ -68,6 +68,8 @@
     //platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
     platforms.create(2200, 568, 'ground').setScale(2).refreshBody();
     platforms.create(3000, 568, 'ground').setScale(2).refreshBody();
+
+    this.add.image(2600, 90, 'obstaclehouse');
 
     worldbounds = this.physics.add.staticGroup();
     worldbounds.create(500, 400, 'worldbound');
@@ -112,29 +114,26 @@
 
   function update () //Sköter uppdateringar till scenen som tex kontroll av huvudkaraktären
   {
-      if (cursors.left.isDown)
-      {
-          player.setVelocityX(-300);
+    if (cursors.left.isDown)
+    {
+      player.setVelocityX(-300);
+      player.anims.play('left', true);
+    }
+    else if (cursors.right.isDown)
+    {
+      player.setVelocityX(300);
+      player.anims.play('right', true);
+    }
+    else
+    {
+      player.setVelocityX(0);
+      player.anims.play('turn');
+    }
 
-          player.anims.play('left', true);
-      }
-      else if (cursors.right.isDown)
-      {
-          player.setVelocityX(300);
-
-          player.anims.play('right', true);
-      }
-      else
-      {
-          player.setVelocityX(0);
-
-          player.anims.play('turn');
-      }
-
-      if (cursors.up.isDown && player.body.touching.down)
-      {
-          player.setVelocityY(-500);
-      }
+    if (cursors.up.isDown && player.body.touching.down)
+    {
+      player.setVelocityY(-500);
+    }
   }
 
   </script>
