@@ -50,6 +50,7 @@
     this.load.image('houseplatform2', 'assets/pictures/emil/houseplatform2.png');
     this.load.image('lefthousewall', 'assets/pictures/emil/leftwall.png');
     this.load.image('righthousewall', 'assets/pictures/emil/rightwall.png');
+    this.load.image('invisibleplatform', 'assets/pictures/emil/invisibleplatform.png');
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
   }
@@ -77,17 +78,18 @@
     platforms.create(2200, 360, 'ground').setScale(0.5).refreshBody();
     platforms.create(1900, 160, 'ground').setScale(0.5).refreshBody();
 
-    platforms.create(2300, 282, 'lefthousewall');
+    platforms.create(2300, 285, 'lefthousewall');
     platforms.create(3296, 72, 'righthousewall');
     platforms.create(2685, 45, 'houseplatform1');
     platforms.create(2885, 313, 'houseplatform2');
+    platforms.create(2814, -195, 'invisibleplatform');
 
     this.add.image(2800, 20, 'obstaclehouse');
 
     worldbounds = this.physics.add.staticGroup();
     worldbounds.create(500, 400, 'worldbound');
 
-    player = this.physics.add.sprite(2500, 450, 'neet'); //Ska vara 700, 450
+    player = this.physics.add.sprite(2300, 450, 'neet'); //Ska vara 700, 450
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(player, worldbounds);
