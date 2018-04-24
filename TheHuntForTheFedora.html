@@ -10,6 +10,8 @@
 </head>
 <body>
   <script type='text/javascript'>
+
+  //Konfigureras hur Phaser körs.
   var config = {
       type: Phaser.AUTO,
       width: 800,
@@ -28,17 +30,18 @@
       }
   };
 
-  //Alla variabler måste definas globalt för att assignments från tex. create() inte ska försvinna när funktionen löper ut.
+  //Alla variabler måste definas globalt för att assignments från funktioner inte ska försvinna när de löper ut.
   var player;
   var minipepe;
   var platforms;
-  var worldbounds;
   var cursors;
   var music;
+  var jumpsound;
 
+  //Startar en Phaser-instans med den valda konfigurationen.
   var game = new Phaser.Game(config);
 
-  function preload () //Laddar alla assets som spelet behöver innan scenen skapas
+  function preload() //Laddar alla assets som spelet behöver innan scenen skapas.
   {
     this.load.image('sky', 'assets/pictures/sky.png');
     this.load.image('sky2', 'assets/pictures/sky2.png');
@@ -56,11 +59,12 @@
     this.load.spritesheet('minipepe', 'assets/pictures/minipepe.png', { frameWidth: 86, frameHeight: 150 });
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
-    this.load.audio('theme2', ['assets/audio/victor/Jumpsound.mp3']);
+    this.load.audio('jumpsound', ['assets/audio/victor/Jumpsound.ogg']);
   }
 
-  function create () //Skapar scenen. Scenen byggs sekventiellt. Detta betyder att ju senare en bild skapas, desto högre prioritet får den.
+  function create() //Skapar scenen. Scenen byggs sekventiellt. Detta betyder att ju senare en bild skapas, desto högre prioritet får den.
   {
+    //Bakgrundsbilder. Spelaren interagerar ej med dessa.
     this.add.image(1500, 300, 'sky'); //En basic himmel som bakgrund.
     this.add.image(4500, 300, 'sky');
     this.add.image(1500, 900, 'sky2'); //sky2 är en horisontell spegelvändning av sky. Det gör att den kan placeras ovanför och under sky med en smooth övergång.
@@ -71,11 +75,10 @@
     this.add.image(300, 320, 'neethouse');
     this.add.image(800, 350, 'tree');
 
-
+    //Alla statiska objekt som spelaren interagerar med.
     platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
-    //platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
     platforms.create(2200, 568, 'ground').setScale(2).refreshBody();
     platforms.create(3000, 568, 'ground').setScale(2).refreshBody();
     platforms.create(3300, 568, 'ground').setScale(2).refreshBody();
@@ -89,78 +92,76 @@
     platforms.create(4150, -340, 'moln').setScale(0.5).refreshBody();
     platforms.create(4850, -570, 'moln').setScale(0.5).refreshBody();
     platforms.create(4150, -800, 'moln').setScale(0.5).refreshBody();
-
+    platforms.create(500, 400, 'worldbound');
     platforms.create(2300, 285, 'lefthousewall');
     platforms.create(3296, 72, 'righthousewall');
     platforms.create(2685, 45, 'houseplatform1');
     platforms.create(2885, 313, 'houseplatform2');
     platforms.create(2814, -195, 'invisibleplatform');
 
+    //Den här bilden skapas här nere för att den ska placeras framför plattformarna.
     this.add.image(2800, 20, 'obstaclehouse');
 
-    worldbounds = this.physics.add.staticGroup();
-    worldbounds.create(500, 400, 'worldbound');
-
+    //Spelaren skapas. Interaktiva objekt assignas till globala variabler så att de ska kunna kontrolleras från andra funktioner.
     player = this.physics.add.sprite(2300, 450, 'neet'); //Ska vara 700, 450
 
+    //Skapar en fiende.
     minipepe = this.physics.add.sprite(1400, 450, 'minipepe');
     minipepe.setVelocityX(-300);
-    console.log(minipepe);
 
+    //Gör så att alla physics-objekt interagerar med varandra.
     this.physics.add.collider(player, platforms);
-    this.physics.add.collider(player, worldbounds);
     this.physics.add.collider(minipepe, platforms);
     this.physics.add.collider(player, minipepe);
 
-    //this.cameras.main.setSize(800, 600);
-    this.cameras.main.startFollow(player, 100, null, null);
-    //console.log(this.cameras.main);
+    //Gör så att kameran följer efter spelaren.
+    this.cameras.main.startFollow(player);
 
-    //Ser till att kontrollerna fungerar efter att create() löpt ut
+    //Ser till att kontrollerna fungerar efter att create() löpt ut.
     cursors = this.input.keyboard.createCursorKeys();
 
-    //  Spelaranimationerna
+    //Spelaranimationerna skapas.
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('neet', { start: 0, end: 1 }),
         frameRate: 7,
         repeat: -1
     });
-
     this.anims.create({
         key: 'turn',
         frames: [ { key: 'neet', frame: 2 } ],
         frameRate: 20
     });
-
     this.anims.create({
         key: 'right',
         frames: this.anims.generateFrameNumbers('neet', { start: 3, end: 4 }),
         frameRate: 7,
         repeat: -1
     });
-
     this.anims.create({
         key: 'mpepeleft',
         frames: [ { key: 'minipepe', frame: 0 } ],
         frameRate: 20
     });
-
     this.anims.create({
         key: 'mpeperight',
         frames: [ { key: 'minipepe', frame: 1 } ],
         frameRate: 20
     });
 
+    //Ljudkonfiguration
     music = this.sound.add('theme');
+    jumpsound = this.sound.add('jumpsound');
 
-    //Bakgrundsmusik
+    //Startar bakgrundsmusiken
     music.play();
+
+    console.log(player.body);
   }
 
-  function update () //Sköter allt interaktivt
+  function update() //Sköter allt interaktivt
   {
-    //Kontroller och spelaranimationer
+    //Kontrollerar input och spelaranimationer
     if (cursors.left.isDown){
       player.setVelocityX(-300);
       player.anims.play('left', true);
@@ -175,8 +176,7 @@
     }
     if (cursors.up.isDown /*&& player.body.touching.down*/){
       player.setVelocityY(-500);
-      music.play();
-      music = this.sound.add('theme2');
+      jumpsound.play();
     }
 
     //Kontrollerar första pepen
@@ -188,6 +188,11 @@
       minipepe.setVelocityX(-300);
       minipepe.anims.play('mpepeleft');
     }
+  }
+
+  function respawn()
+  {
+
   }
 
   </script>
