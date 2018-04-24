@@ -51,6 +51,7 @@
     this.load.image('lefthousewall', 'assets/pictures/emil/leftwall.png');
     this.load.image('righthousewall', 'assets/pictures/emil/rightwall.png');
     this.load.image('invisibleplatform', 'assets/pictures/emil/invisibleplatform.png');
+    this.load.image('moln', 'assets/pictures/andreas/moln.png');
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
     this.load.audio('theme2', ['assets/audio/victor/Jumpsound.mp3']);
@@ -64,6 +65,7 @@
     this.add.image(4500, 900, 'sky2');
     this.add.image(1500, -300, 'sky2');
     this.add.image(4500, -300, 'sky2');
+    this.add.image(4500, -900, 'sky');
     this.add.image(300, 320, 'neethouse');
     this.add.image(800, 350, 'tree');
 
@@ -79,6 +81,12 @@
     platforms.create(1900, 160, 'ground').setScale(0.5).refreshBody();
     platforms.create(4400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(4600, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(4850, 310, 'ground').setScale(0.75).refreshBody();
+    platforms.create(4150, 100, 'ground').setScale(0.75).refreshBody();
+    platforms.create(4850, -130, 'ground').setScale(0.75).refreshBody();
+    platforms.create(4150, -320, 'moln').setScale(0.5).refreshBody();
+    platforms.create(4850, -550, 'moln').setScale(0.5).refreshBody();
+    platforms.create(4150, -780, 'moln').setScale(0.5).refreshBody();
 
     platforms.create(2300, 285, 'lefthousewall');
     platforms.create(3296, 72, 'righthousewall');
