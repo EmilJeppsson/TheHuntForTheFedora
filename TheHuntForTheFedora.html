@@ -30,6 +30,7 @@
 
   //Alla variabler måste definas globalt för att assignments från tex. create() inte ska försvinna när funktionen löper ut.
   var player;
+  var minipepe;
   var platforms;
   var worldbounds;
   var cursors;
@@ -52,6 +53,7 @@
     this.load.image('righthousewall', 'assets/pictures/emil/rightwall.png');
     this.load.image('invisibleplatform', 'assets/pictures/emil/invisibleplatform.png');
     this.load.image('moln', 'assets/pictures/andreas/moln.png');
+    this.load.spritesheet('minipepe', 'assets/pictures/minipepe.png', { frameWidth: 94, frameHeight: 150 });
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
     this.load.audio('theme2', ['assets/audio/victor/Jumpsound.mp3']);
@@ -101,8 +103,12 @@
 
     player = this.physics.add.sprite(2300, 450, 'neet'); //Ska vara 700, 450
 
+    minipepe = this.physics.add.sprite(1400, 450, 'minipepe');
+
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(player, worldbounds);
+    this.physics.add.collider(minipepe, platforms);
+    this.physics.add.collider(player, minipepe);
 
     //this.cameras.main.setSize(800, 600);
     this.cameras.main.startFollow(player, 100, null, null);
