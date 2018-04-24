@@ -72,18 +72,22 @@
     //platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
     platforms.create(2200, 568, 'ground').setScale(2).refreshBody();
     platforms.create(3000, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(3300, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(3000, 568, 'ground').setScale(2).refreshBody();
     platforms.create(2200, 360, 'ground').setScale(0.5).refreshBody();
     platforms.create(1900, 160, 'ground').setScale(0.5).refreshBody();
 
     platforms.create(2300, 282, 'lefthousewall');
-    platforms.create(2750, 200, 'righthousewall');
+    platforms.create(3296, 72, 'righthousewall');
+    platforms.create(2685, 45, 'houseplatform1');
+    platforms.create(2885, 313, 'houseplatform2');
 
     this.add.image(2800, 20, 'obstaclehouse');
 
     worldbounds = this.physics.add.staticGroup();
     worldbounds.create(500, 400, 'worldbound');
 
-    player = this.physics.add.sprite(2000, 450, 'neet'); //Ska vara 700, 450
+    player = this.physics.add.sprite(2500, 450, 'neet'); //Ska vara 700, 450
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(player, worldbounds);
