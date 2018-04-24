@@ -46,6 +46,10 @@
     this.load.image('tree', 'assets/pictures/andreas/tree.png');
     this.load.image('worldbound', 'assets/pictures/invisiblewall.png');
     this.load.image('obstaclehouse', 'assets/pictures/emil/hus5.png');
+    this.load.image('houseplatform1', 'assets/pictures/emil/houseplatform1.png');
+    this.load.image('houseplatform2', 'assets/pictures/emil/houseplatform2.png');
+    this.load.image('lefthousewall', 'assets/pictures/emil/leftwall.png');
+    this.load.image('righthousewall', 'assets/pictures/emil/rightwall.png');
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
   }
@@ -68,15 +72,22 @@
     //platforms.create(1000, 695, 'ground').setScale(6).refreshBody();
     platforms.create(2200, 568, 'ground').setScale(2).refreshBody();
     platforms.create(3000, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(3300, 568, 'ground').setScale(2).refreshBody();
+    platforms.create(3000, 568, 'ground').setScale(2).refreshBody();
     platforms.create(2200, 360, 'ground').setScale(0.5).refreshBody();
     platforms.create(1900, 160, 'ground').setScale(0.5).refreshBody();
+
+    platforms.create(2300, 282, 'lefthousewall');
+    platforms.create(3296, 72, 'righthousewall');
+    platforms.create(2685, 45, 'houseplatform1');
+    platforms.create(2885, 313, 'houseplatform2');
 
     this.add.image(2800, 20, 'obstaclehouse');
 
     worldbounds = this.physics.add.staticGroup();
     worldbounds.create(500, 400, 'worldbound');
 
-    player = this.physics.add.sprite(2000, 450, 'neet'); //Ska vara 700, 450
+    player = this.physics.add.sprite(2500, 450, 'neet'); //Ska vara 700, 450
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(player, worldbounds);
@@ -132,7 +143,7 @@
       player.anims.play('turn');
     }
 
-    if (cursors.up.isDown && player.body.touching.down)
+    if (cursors.up.isDown /*&& player.body.touching.down*/)
     {
       player.setVelocityY(-500);
     }
