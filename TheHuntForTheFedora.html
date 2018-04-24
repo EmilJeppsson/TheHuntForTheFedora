@@ -20,7 +20,7 @@
           default: 'arcade',
           arcade: {
               gravity: { y: 600 },
-              debug: true
+              debug: false
           }
       },
       scene: {
@@ -56,6 +56,7 @@
     this.load.image('righthousewall', 'assets/pictures/emil/rightwall.png');
     this.load.image('invisibleplatform', 'assets/pictures/emil/invisibleplatform.png');
     this.load.image('moln', 'assets/pictures/andreas/moln.png');
+    this.load.image('apology', 'assets/pictures/emil/apology.png');
     this.load.spritesheet('minipepe', 'assets/pictures/minipepe.png', { frameWidth: 86, frameHeight: 150 });
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
@@ -74,6 +75,7 @@
     this.add.image(4500, -900, 'sky');
     this.add.image(300, 320, 'neethouse');
     this.add.image(800, 350, 'tree');
+    this.add.image(4170, -550, 'apology');
 
     //Alla statiska objekt som spelaren interagerar med.
     platforms = this.physics.add.staticGroup();
@@ -86,12 +88,12 @@
     platforms.create(1900, 160, 'ground').setScale(0.5).refreshBody();
     platforms.create(4400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(4600, 568, 'ground').setScale(2).refreshBody();
-    platforms.create(4850, 310, 'ground').setScale(0.75).refreshBody();
-    platforms.create(4150, 100, 'ground').setScale(0.75).refreshBody();
-    platforms.create(4850, -130, 'ground').setScale(0.75).refreshBody();
-    platforms.create(4150, -340, 'moln').setScale(0.5).refreshBody();
-    platforms.create(4850, -570, 'moln').setScale(0.5).refreshBody();
-    platforms.create(4150, -800, 'moln').setScale(0.5).refreshBody();
+    platforms.create(4850, 350, 'ground').setScale(0.75).refreshBody();
+    platforms.create(4200, 175, 'ground').setScale(0.75).refreshBody();
+    platforms.create(4850, 30, 'ground').setScale(0.75).refreshBody();
+    platforms.create(4170, -140, 'moln').setScale(0.5).refreshBody();
+    platforms.create(4850, -320, 'moln').setScale(0.5).refreshBody();
+    platforms.create(4170, -500, 'moln').setScale(0.5).refreshBody();
     platforms.create(500, 400, 'worldbound');
     platforms.create(2300, 285, 'lefthousewall');
     platforms.create(3296, 72, 'righthousewall');
@@ -103,7 +105,7 @@
     this.add.image(2800, 20, 'obstaclehouse');
 
     //Spelaren skapas. Interaktiva objekt assignas till globala variabler så att de ska kunna kontrolleras från andra funktioner.
-    player = this.physics.add.sprite(2300, 450, 'neet'); //Ska vara 700, 450
+    player = this.physics.add.sprite(700, 450, 'neet');
 
     //Skapar en fiende.
     minipepe = this.physics.add.sprite(1400, 450, 'minipepe');
@@ -174,7 +176,7 @@
       player.setVelocityX(0);
       player.anims.play('turn');
     }
-    if (cursors.up.isDown /*&& player.body.touching.down*/){
+    if (cursors.up.isDown && player.body.touching.down){
       player.setVelocityY(-500);
       jumpsound.play();
     }
