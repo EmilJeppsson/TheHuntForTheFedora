@@ -53,7 +53,7 @@
     this.load.image('righthousewall', 'assets/pictures/emil/rightwall.png');
     this.load.image('invisibleplatform', 'assets/pictures/emil/invisibleplatform.png');
     this.load.image('moln', 'assets/pictures/andreas/moln.png');
-    this.load.spritesheet('minipepe', 'assets/pictures/minipepe.png', { frameWidth: 94, frameHeight: 150 });
+    this.load.spritesheet('minipepe', 'assets/pictures/minipepe.png', { frameWidth: 86, frameHeight: 150 });
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
     this.load.audio('theme2', ['assets/audio/victor/Jumpsound.mp3']);
@@ -104,6 +104,8 @@
     player = this.physics.add.sprite(2300, 450, 'neet'); //Ska vara 700, 450
 
     minipepe = this.physics.add.sprite(1400, 450, 'minipepe');
+    minipepe.setVelocityX(-300);
+    console.log(minipepe);
 
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(player, worldbounds);
@@ -137,35 +139,54 @@
         frameRate: 7,
         repeat: -1
     });
+
+    this.anims.create({
+        key: 'mpepeleft',
+        frames: [ { key: 'minipepe', frame: 0 } ],
+        frameRate: 20
+    });
+
+    this.anims.create({
+        key: 'mpeperight',
+        frames: [ { key: 'minipepe', frame: 1 } ],
+        frameRate: 20
+    });
+
     music = this.sound.add('theme');
 
     //Bakgrundsmusik
     music.play();
   }
 
-  function update () //Sköter uppdateringar till scenen som tex kontroll av huvudkaraktären
+  function update () //Sköter allt interaktivt
   {
-    if (cursors.left.isDown)
-    {
+    //Kontroller och spelaranimationer
+    if (cursors.left.isDown){
       player.setVelocityX(-300);
       player.anims.play('left', true);
     }
-    else if (cursors.right.isDown)
-    {
+    else if (cursors.right.isDown){
       player.setVelocityX(300);
       player.anims.play('right', true);
     }
-    else
-    {
+    else{
       player.setVelocityX(0);
       player.anims.play('turn');
     }
-
-    if (cursors.up.isDown /*&& player.body.touching.down*/)
-    {
+    if (cursors.up.isDown /*&& player.body.touching.down*/){
       player.setVelocityY(-500);
       music.play();
       music = this.sound.add('theme2');
+    }
+
+    //Kontrollerar första pepen
+    if (minipepe.x < 900){
+      minipepe.setVelocityX(300);
+      minipepe.anims.play('mpeperight');
+    }
+    if (minipepe.x > 1500){
+      minipepe.setVelocityX(-300);
+      minipepe.anims.play('mpepeleft');
     }
   }
 
