@@ -52,6 +52,7 @@
     this.load.image('righthousewall', 'assets/pictures/emil/rightwall.png');
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
+    this.load.audio('theme2', ['assets/audio/victor/Jumpsound.mp3']);
   }
 
   function create () //Skapar scenen. Scenen byggs sekventiellt. Detta betyder att ju senare en bild skapas, desto högre prioritet får den.
@@ -142,7 +143,10 @@
     if (cursors.up.isDown /*&& player.body.touching.down*/)
     {
       player.setVelocityY(-500);
+      music.play();
+      music = this.sound.add('theme2');
     }
+
   }
 
   </script>
