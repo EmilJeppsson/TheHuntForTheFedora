@@ -10,8 +10,19 @@
 </head>
 <body>
   <script type='text/javascript'>
+  /*
+  Kodskrivaren markeras med första bokstaven i respektive persons namn.
+  Varje stycke kod kommer ha en kommentar med en bokstav.
+  Bokstaven gäller nedåt till en annan bokstav skrivits.
+  Alla assets har sorterats in en mapp för respektive person.
 
-  //Konfigureras hur Phaser körs.
+  Emil = *E*
+  Andreas = *A*
+  Victor = *V*
+  }
+  */
+
+  //Konfigureras hur Phaser körs. *E*
   var config = {
       type: Phaser.AUTO,
       width: 800,
@@ -30,7 +41,7 @@
       }
   };
 
-  //Alla variabler måste definas globalt för att assignments från funktioner inte ska försvinna när de löper ut.
+  //Alla variabler måste definas globalt för att assignments från funktioner inte ska försvinna när de löper ut. *E*
   var player;
   var minipepe;
   var platforms;
@@ -38,14 +49,14 @@
   var music;
   var jumpsound;
 
-  //Startar en Phaser-instans med den valda konfigurationen.
+  //Startar en Phaser-instans med den valda konfigurationen. *E*
   var game = new Phaser.Game(config);
 
-  function preload() //Laddar alla assets som spelet behöver innan scenen skapas.
+  function preload() //Laddar alla assets som spelet behöver innan scenen skapas. *E*
   {
     this.load.image('sky', 'assets/pictures/sky.png');
     this.load.image('sky2', 'assets/pictures/sky2.png');
-    this.load.image('ground', 'http://labs.phaser.io/src/games/firstgame/assets/platform.png');
+    this.load.image('ground', 'assets/pictures/platform.png');
     this.load.image('neethouse', 'assets/pictures/emil/neethouse.png');
     this.load.image('tree', 'assets/pictures/andreas/tree.png');
     this.load.image('worldbound', 'assets/pictures/emil/invisiblewall.png');
@@ -63,9 +74,9 @@
     this.load.audio('jumpsound', ['assets/audio/victor/Jumpsound.ogg']);
   }
 
-  function create() //Skapar scenen. Scenen byggs sekventiellt. Detta betyder att ju senare en bild skapas, desto högre prioritet får den.
+  function create() //Skapar scenen. Scenen byggs sekventiellt. Detta betyder att ju senare en bild skapas, desto högre prioritet får den. *E*
   {
-    //Bakgrundsbilder. Spelaren interagerar ej med dessa.
+    //Bakgrundsbilder. Spelaren interagerar ej med dessa. *E*
     this.add.image(1500, 300, 'sky'); //En basic himmel som bakgrund.
     this.add.image(4500, 300, 'sky');
     this.add.image(1500, 900, 'sky2'); //sky2 är en horisontell spegelvändning av sky. Det gör att den kan placeras ovanför och under sky med en smooth övergång.
@@ -77,13 +88,14 @@
     this.add.image(800, 350, 'tree');
     this.add.image(4170, -550, 'apology');
 
-    //Alla statiska objekt som spelaren interagerar med.
+    //Alla statiska objekt som spelaren interagerar med. *E*
     platforms = this.physics.add.staticGroup();
     platforms.create(400, 568, 'ground').setScale(2).refreshBody();
     platforms.create(1200, 568, 'ground').setScale(2).refreshBody();
     platforms.create(2200, 568, 'ground').setScale(2).refreshBody();
     platforms.create(3000, 568, 'ground').setScale(2).refreshBody();
     platforms.create(3300, 568, 'ground').setScale(2).refreshBody();
+    //*A*
     platforms.create(2200, 360, 'ground').setScale(0.5).refreshBody();
     platforms.create(1900, 160, 'ground').setScale(0.5).refreshBody();
     platforms.create(4400, 568, 'ground').setScale(2).refreshBody();
@@ -94,6 +106,7 @@
     platforms.create(4170, -140, 'moln').setScale(0.5).refreshBody();
     platforms.create(4850, -320, 'moln').setScale(0.5).refreshBody();
     platforms.create(4170, -500, 'moln').setScale(0.5).refreshBody();
+    //*E*
     platforms.create(500, 400, 'worldbound');
     platforms.create(2300, 285, 'lefthousewall');
     platforms.create(3296, 72, 'righthousewall');
@@ -101,28 +114,28 @@
     platforms.create(2885, 313, 'houseplatform2');
     platforms.create(2814, -195, 'invisibleplatform');
 
-    //Den här bilden skapas här nere för att den ska placeras framför plattformarna.
+    //Den här bilden skapas här nere för att den ska placeras framför plattformarna. *E*
     this.add.image(2800, 20, 'obstaclehouse');
 
-    //Spelaren skapas. Interaktiva objekt assignas till globala variabler så att de ska kunna kontrolleras från andra funktioner.
+    //Spelaren skapas. Interaktiva objekt assignas till globala variabler så att de ska kunna kontrolleras från andra funktioner. *E*
     player = this.physics.add.sprite(700, 450, 'neet');
 
-    //Skapar en fiende.
+    //Skapar en fiende. *E*
     minipepe = this.physics.add.sprite(1400, 450, 'minipepe');
     minipepe.setVelocityX(-300);
 
-    //Gör så att alla physics-objekt interagerar med varandra.
+    //Gör så att alla physics-objekt interagerar med varandra. *E*
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(minipepe, platforms);
     this.physics.add.collider(player, minipepe);
 
-    //Gör så att kameran följer efter spelaren.
+    //Gör så att kameran följer efter spelaren. *E*
     this.cameras.main.startFollow(player);
 
-    //Ser till att kontrollerna fungerar efter att create() löpt ut.
+    //Ser till att kontrollerna fungerar efter att create() löpt ut. *E*
     cursors = this.input.keyboard.createCursorKeys();
 
-    //Spelaranimationerna skapas.
+    //Spelaranimationerna skapas. *V*
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('neet', { start: 0, end: 1 }),
@@ -151,17 +164,17 @@
         frameRate: 20
     });
 
-    //Ljudkonfiguration
+    //Ljudkonfiguration *V* *E*
     music = this.sound.add('theme');
     jumpsound = this.sound.add('jumpsound');
 
-    //Startar bakgrundsmusiken
+    //Startar bakgrundsmusiken *V*
     music.play();
   }
 
-  function update() //Sköter allt interaktivt
+  function update() //Sköter allt interaktivt *E*
   {
-    //Kontrollerar input och spelaranimationer
+    //Kontrollerar input och spelaranimationer *E*
     if (cursors.left.isDown){
       player.setVelocityX(-300);
       player.anims.play('left', true);
@@ -179,7 +192,7 @@
       jumpsound.play();
     }
 
-    //Kontrollerar första pepen
+    //Kontrollerar första pepen *E*
     if (minipepe.x < 900){
       minipepe.setVelocityX(300);
       minipepe.anims.play('mpeperight');
@@ -190,7 +203,7 @@
     }
   }
 
-  function respawn()
+  function respawn() //Var tänkt att anropas när spelaren dog så att banan startas om. Skrevs aldrig. *E*
   {
 
   }
