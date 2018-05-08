@@ -5,7 +5,7 @@
   <title>The Hunt For The Fedora</title>
   <!-- Phaser-APIn hämtas från ett content delivery network istället för att sparas lokalt.
   Fördelarna med detta är att projektet får en mycket mindre storlek och att versionen
-  på Phaser kan uppdateras endast genom att ändra adressen. -->
+  på Phaser kan uppdateras endast genom att ändra adressen. *E* -->
   <script src="//cdn.jsdelivr.net/npm/phaser@3.3.0/dist/phaser.js"></script>
 </head>
 <body>
@@ -14,12 +14,12 @@
   Kodskrivaren markeras med första bokstaven i respektive persons namn.
   Varje stycke kod kommer ha en kommentar med en bokstav.
   Bokstaven gäller nedåt till en annan bokstav skrivits.
-  Alla assets har sorterats in en mapp för respektive person.
 
   Emil = *E*
   Andreas = *A*
   Victor = *V*
-  }
+
+  Alla assets har sorterats in i mappar för respektive person.
   */
 
   //Konfigureras hur Phaser körs. *E*
@@ -68,7 +68,7 @@
     this.load.image('invisibleplatform', 'assets/pictures/emil/invisibleplatform.png');
     this.load.image('moln', 'assets/pictures/andreas/moln.png');
     this.load.image('apology', 'assets/pictures/emil/apology.png');
-    this.load.spritesheet('minipepe', 'assets/pictures/minipepe.png', { frameWidth: 86, frameHeight: 150 });
+    this.load.spritesheet('minipepe', 'assets/pictures/andreas/minipepe.png', { frameWidth: 86, frameHeight: 150 });
     this.load.spritesheet('neet', 'assets/pictures/n33t.png', { frameWidth: 94, frameHeight: 150 });
     this.load.audio('theme', ['assets/audio/victor/Neckbeard2.mp3']);
     this.load.audio('jumpsound', ['assets/audio/victor/Jumpsound.ogg']);
@@ -164,7 +164,7 @@
         frameRate: 20
     });
 
-    //Ljudkonfiguration *V* *E*
+    //Ljudkonfiguration *V*
     music = this.sound.add('theme');
     jumpsound = this.sound.add('jumpsound');
 
